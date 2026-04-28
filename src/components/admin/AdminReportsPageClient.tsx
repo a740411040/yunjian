@@ -425,12 +425,12 @@ function getTargetTitle(report: AdminReportItem) {
 }
 
 function getTargetModerationStatus(report: AdminReportItem) {
-  if (report.target_type === "note") {
-    return report.target_note?.moderation_status ?? null;
+  if (report.target_note) {
+    return report.target_note.visibility === "public" ? "approved" : "hidden";
   }
 
-  if (report.target_type === "comment") {
-    return report.target_comment?.moderation_status ?? null;
+  if (report.target_comment) {
+    return report.target_comment.is_deleted ? "hidden" : "approved";
   }
 
   return null;

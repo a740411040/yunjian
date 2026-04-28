@@ -15,7 +15,7 @@ function uniqueIds(values: Array<string | null | undefined>) {
 export async function createNotification(
   payload: CreateNotificationPayload
 ): Promise<Notification | null> {
-  const supabase = createClient();
+  const supabase = createClient() as any;
 
   const {
     data: { user },
@@ -59,7 +59,7 @@ export async function createNotification(
 }
 
 export async function getNotifications(): Promise<NotificationWithActor[]> {
-  const supabase = createClient();
+ const supabase = createClient() as any;
 
   const {
     data: { user },
@@ -122,7 +122,7 @@ export async function getNotifications(): Promise<NotificationWithActor[]> {
 }
 
 export async function getUnreadNotificationCount(): Promise<number> {
-  const supabase = createClient();
+  const supabase = createClient() as any;
 
   const {
     data: { user },
@@ -154,7 +154,7 @@ export async function getUnreadNotificationCount(): Promise<number> {
 }
 
 export async function markNotificationAsRead(notificationId: string) {
-  const supabase = createClient();
+  const supabase = createClient() as any;
 
   const { error } = await supabase
     .from("notifications")
@@ -169,7 +169,7 @@ export async function markNotificationAsRead(notificationId: string) {
 }
 
 export async function markAllNotificationsAsRead() {
-  const supabase = createClient();
+  const supabase = createClient() as any;
 
   const {
     data: { user },

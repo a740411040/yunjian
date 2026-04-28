@@ -19,7 +19,6 @@ export async function publishNote(
       published_at: new Date().toISOString(),
       community_excerpt: payload.community_excerpt?.trim() || null,
       allow_comments: payload.allow_comments,
-      moderation_status: "approved"
     })
     .eq("id", noteId)
     .select("*")
@@ -109,7 +108,6 @@ export async function getCommunityNotes(
     .from("notes")
     .select("*")
     .eq("visibility", "public")
-    .eq("moderation_status", "approved")
     .order("published_at", { ascending: false });
 
   if (params.tag) {
@@ -161,7 +159,6 @@ export async function getCommunityNotes(
       .from("note_comments")
       .select("note_id")
       .eq("is_deleted", false)
-      .eq("moderation_status", "approved")
       .in("note_id", noteIds),
 
     currentUserId

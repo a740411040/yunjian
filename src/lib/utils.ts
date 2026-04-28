@@ -21,8 +21,8 @@ export function stripHtml(html: string) {
   if (!html) return "";
 
   return html
-    .replace(/<style[^>]*>.*?<\/style>/gis, "")
-    .replace(/<script[^>]*>.*?<\/script>/gis, "")
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")

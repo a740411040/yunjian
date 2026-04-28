@@ -14,8 +14,7 @@ export type CommunityCommentItem = {
   user_id: string;
   parent_id: string | null;
   content: string;
-  is_deleted: boolean;
-  moderation_status?: "approved" | "hidden" | null;
+  is_deleted?: boolean | null;
   created_at: string;
   updated_at: string | null;
   profile: {

@@ -38,7 +38,6 @@ export async function getCommunityNoteByIdServer(
     .select("*")
     .eq("id", noteId)
     .eq("visibility", "public")
-    .eq("moderation_status", "approved")
     .maybeSingle();
 
   if (noteError) throw noteError;
@@ -65,7 +64,7 @@ export async function getCommunityNoteByIdServer(
       .select("id")
       .eq("note_id", note.id)
       .eq("is_deleted", false)
-      .eq("moderation_status", "approved"),
+      .eq("is_deleted", false),
 
     currentUserId
       ? supabase
@@ -103,32 +102,30 @@ export async function getPublicNotesByUserId(
   const supabase = await createClient();
 
   const { data: notes, error } = await supabase
-    .from("notes")
-    .select(
-      `
-      id,
-      user_id,
-      title,
-      content,
-      tags,
-      is_pinned,
-      created_at,
-      updated_at,
-      visibility,
-      published_at,
-      community_excerpt,
-      cover_image_url,
-      allow_comments,
-      view_count,
-      share_count,
-      moderation_status
+  .from("notes")
+  .select(
     `
-    )
-    .eq("user_id", userId)
-    .eq("visibility", "public")
-    .eq("moderation_status", "approved")
-    .order("published_at", { ascending: false, nullsFirst: false })
-    .order("updated_at", { ascending: false });
+    id,
+    user_id,
+    title,
+    content,
+    tags,
+    is_pinned,
+    created_at,
+    updated_at,
+    visibility,
+    published_at,
+    community_excerpt,
+    cover_image_url,
+    allow_comments,
+    view_count,
+    share_count
+    `
+  )
+  .eq("user_id", userId)
+  .eq("visibility", "public")
+  .order("published_at", { ascending: false, nullsFirst: false })
+  .order("updated_at", { ascending: false });
 
   if (error) {
     console.error("[getPublicNotesByUserId]", error);
@@ -153,7 +150,6 @@ export async function getPublicNotesByUserId(
       .select("note_id")
       .in("note_id", noteIds)
       .eq("is_deleted", false)
-      .eq("moderation_status", "approved")
   ]);
 
   const likeMap = countByNoteId(likesResult.data ?? []);

@@ -110,8 +110,7 @@ export function CommentEditor({ noteId, onCreated }: CommentEditorProps) {
         user_id: user.id,
         parent_id: null,
         content: trimmedContent,
-        is_deleted: false,
-        moderation_status: "approved"
+        is_deleted: false
       })
       .select("id,note_id,user_id,content")
       .single();

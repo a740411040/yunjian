@@ -10,7 +10,7 @@ export type AdminReportTargetNote = {
   user_id: string;
   title: string | null;
   content: string | null;
-  moderation_status: string | null;
+  visibility: "private" | "public" | null;
 };
 
 export type AdminReportTargetComment = {
@@ -18,7 +18,7 @@ export type AdminReportTargetComment = {
   note_id: string;
   user_id: string;
   content: string | null;
-  moderation_status: string | null;
+  is_deleted: boolean | null;
 };
 
 export type AdminReportItem = Report & {
@@ -83,14 +83,14 @@ export async function getAdminReports(): Promise<AdminReportItem[]> {
     noteIds.length > 0
       ? supabase
           .from("notes")
-          .select("id,user_id,title,content,moderation_status")
+          .select("id,user_id,title,content,visibility")
           .in("id", noteIds)
       : Promise.resolve({ data: [], error: null }),
 
     commentIds.length > 0
       ? supabase
           .from("note_comments")
-          .select("id,note_id,user_id,content,moderation_status")
+          .select("id,note_id,user_id,content,is_deleted")
           .in("id", commentIds)
       : Promise.resolve({ data: [], error: null }),
 
@@ -195,14 +195,14 @@ export async function updateReportStatus(
   const oldReport = oldReportData as Report | null;
 
   const { data, error } = await supabase
-    .from("reports")
-    .update({
-      status,
-      updated_at: new Date().toISOString()
-    })
-    .eq("id", reportId)
-    .select("*")
-    .single();
+  .from("reports")
+  .update({
+    status,
+    updated_at: new Date().toISOString()
+  } as never)
+  .eq("id", reportId)
+  .select("*")
+  .single();
 
   if (error) {
     throw error;
@@ -221,12 +221,12 @@ export async function hideReportedNote(noteId: string) {
   const supabase = createClient();
 
   const { error } = await supabase
-    .from("notes")
-    .update({
-      moderation_status: "hidden",
-      updated_at: new Date().toISOString()
-    })
-    .eq("id", noteId);
+  .from("notes")
+  .update({
+    visibility: "private",
+    updated_at: new Date().toISOString()
+  })
+  .eq("id", noteId);
 
   if (error) {
     throw error;
@@ -239,7 +239,7 @@ export async function restoreReportedNote(noteId: string) {
   const { error } = await supabase
     .from("notes")
     .update({
-      moderation_status: "approved",
+    visibility: "public",
       updated_at: new Date().toISOString()
     })
     .eq("id", noteId);
@@ -253,12 +253,12 @@ export async function hideReportedComment(commentId: string) {
   const supabase = createClient();
 
   const { error } = await supabase
-    .from("note_comments")
-    .update({
-      moderation_status: "hidden",
-      updated_at: new Date().toISOString()
-    })
-    .eq("id", commentId);
+  .from("note_comments")
+  .update({
+    is_deleted: true,
+    updated_at: new Date().toISOString()
+  })
+  .eq("id", commentId);
 
   if (error) {
     throw error;
@@ -269,12 +269,12 @@ export async function restoreReportedComment(commentId: string) {
   const supabase = createClient();
 
   const { error } = await supabase
-    .from("note_comments")
-    .update({
-      moderation_status: "approved",
-      updated_at: new Date().toISOString()
-    })
-    .eq("id", commentId);
+  .from("note_comments")
+  .update({
+    is_deleted: false,
+    updated_at: new Date().toISOString()
+  })
+  .eq("id", commentId);
 
   if (error) {
     throw error;

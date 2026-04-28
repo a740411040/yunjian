@@ -190,8 +190,7 @@ export async function getMyFavoriteNotes() {
     .from("notes")
     .select("*")
     .in("id", noteIds)
-    .eq("visibility", "public")
-    .eq("moderation_status", "approved");
+    .eq("visibility", "public");
 
   if (notesError) {
     throw notesError;
@@ -231,7 +230,6 @@ export async function getMyFavoriteNotes() {
     .from("note_comments")
     .select("note_id")
     .eq("is_deleted", false)
-    .eq("moderation_status", "approved")
     .in("note_id", publicNoteIds);
 
   const { data: myLikesData } = await supabase

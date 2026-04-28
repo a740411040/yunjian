@@ -21,7 +21,7 @@ export type Note = {
   allow_comments?: boolean;
   view_count?: number;
   share_count?: number;
-  moderation_status?: NoteModerationStatus | null;
+
 };
 
 export type NotePayload = {

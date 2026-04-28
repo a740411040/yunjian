@@ -6,17 +6,16 @@ import type { Profile } from "@/types/profile";
 function createDefaultProfile(userId: string) {
   return {
     id: userId,
-    username: `user_${userId.replaceAll("-", "").slice(0, 10)}`,
+    username: `user_${userId.slice(0, 8)}`,
     display_name: "云笺用户",
     avatar_url: null,
-    bio: "这个人还没有留下简介。",
+    bio: "",
     website: null,
     location: null,
     community_enabled: true,
     allow_comments: true,
-    show_liked_notes: false,
-    default_note_visibility: "private" as const,
-    role: "user" as const
+    show_liked_notes: true,
+    default_note_visibility: "private" as const
   };
 }
 

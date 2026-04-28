@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/browser";
 import type { CreateReportPayload, Report } from "@/types/report";
 
 export async function createReport(payload: CreateReportPayload) {
-  const supabase = createClient();
+  const supabase = createClient() as any;
 
   const {
     data: { user },

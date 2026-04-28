@@ -42,9 +42,9 @@ export function PublishPanel({ note, onUpdated }: PublishPanelProps) {
 
     try {
       const updated = await publishNote(note.id, {
-        community_excerpt: excerpt,
-        allow_comments: allowComments
-      });
+  community_excerpt: excerpt,
+  allow_comments: allowComments ?? true
+});
 
       onUpdated(updated);
       toast.success("已发布到社区。");
@@ -79,7 +79,7 @@ export function PublishPanel({ note, onUpdated }: PublishPanelProps) {
     try {
       const updated = await updatePublishedNoteSettings(note.id, {
         community_excerpt: excerpt,
-        allow_comments: allowComments
+        allow_comments: allowComments?? true
       });
 
       onUpdated(updated);

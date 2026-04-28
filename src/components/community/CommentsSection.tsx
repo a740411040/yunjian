@@ -25,7 +25,6 @@ type CommentRow = {
   parent_id: string | null;
   content: string;
   is_deleted: boolean;
-  moderation_status: "approved" | "hidden" | null;
   created_at: string;
   updated_at: string | null;
 };
@@ -70,14 +69,12 @@ export function CommentsSection({
         parent_id,
         content,
         is_deleted,
-        moderation_status,
         created_at,
         updated_at
       `
       )
       .eq("note_id", noteId)
       .eq("is_deleted", false)
-      .eq("moderation_status", "approved")
       .order("created_at", { ascending: false });
 
     if (commentError) {
@@ -127,7 +124,6 @@ export function CommentsSection({
       parent_id: row.parent_id,
       content: row.content,
       is_deleted: row.is_deleted,
-      moderation_status: row.moderation_status,
       created_at: row.created_at,
       updated_at: row.updated_at,
       profile: profileMap.get(row.user_id) ?? null
