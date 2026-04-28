@@ -139,12 +139,13 @@ export function NoteDetailClient({ initialNote }: NoteDetailClientProps) {
               </div>
 
               <div className="flex justify-center">
-                <PosterCaptureCard
-  ref={posterRef}
-  note={note}
-  variant="private"
-/>
-            </section>
+  <PosterCaptureCard
+    ref={posterRef}
+    note={note}
+    variant="private"
+  />
+</div>
+</section>
           </aside>
         </div>
       </div>
