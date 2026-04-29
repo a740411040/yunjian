@@ -1,0 +1,50 @@
+# 不建议直接公开到展示仓的内容
+
+[secrets-and-config]
+.env
+.env.local
+.env*.local
+
+[database-and-auth]
+src/lib/supabase/
+supabase/schema.sql
+src/types/database.ts
+
+[private-business-logic]
+src/lib/notes.ts
+src/lib/notes-server.ts
+src/lib/community.ts
+src/lib/community-server.ts
+src/lib/profiles.ts
+src/lib/profiles-server.ts
+src/lib/feedback.ts
+src/lib/follows.ts
+src/lib/follows-server.ts
+src/lib/likes.ts
+src/lib/favorites.ts
+src/lib/comments.ts
+src/lib/notifications.ts
+src/lib/reports.ts
+src/lib/admin.ts
+src/lib/avatar-upload.ts
+src/lib/storage.ts
+
+[sensitive-pages]
+src/app/admin/
+src/components/admin/
+src/components/community/ReportDialog.tsx
+src/components/community/CommentsSection.tsx
+src/components/community/CommentList.tsx
+src/components/community/CommentEditor.tsx
+src/components/community/LikeButton.tsx
+src/components/community/FavoriteButton.tsx
+src/components/profile/FollowButton.tsx
+
+[server-and-middleware]
+src/middleware.ts
+
+# 备注：
+# 如果你只是想做“作品展示仓”，最好的方式是：
+# 1. 只公开 UI / PWA / 主题 / 样式层
+# 2. 用 mock 数据替代真实 Supabase 调用
+# 3. 删除所有真实环境变量、业务风控和管理端能力
