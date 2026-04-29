@@ -24,7 +24,7 @@ export function NoteEditor({ note, onClose, onSave }: NoteEditorProps) {
     extensions: [
       StarterKit,
       Placeholder.configure({
-        placeholder: "写下此刻的灵感、摘录、实验记录或日常所思..."
+        placeholder: "写下此刻的灵感、摘录、实验记录或日常所思。"
       })
     ],
     content: note?.content ?? "",
@@ -46,7 +46,9 @@ export function NoteEditor({ note, onClose, onSave }: NoteEditorProps) {
   }, [note, editor]);
 
   async function handleSubmit() {
-    if (!editor) return;
+    if (!editor) {
+      return;
+    }
 
     setSubmitting(true);
 
@@ -108,13 +110,13 @@ export function NoteEditor({ note, onClose, onSave }: NoteEditorProps) {
             {note ? "编辑云笺" : "新建云笺"}
           </p>
           <h2 className="font-title mt-1 text-2xl font-black text-ink">
-            以字为舟，渡一念之云
+            以字为舟，渡一念之涯
           </h2>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="grid h-10 w-10 place-items-center rounded-full border border-border-soft bg-white/70 text-dai transition hover:bg-white"
+          className="surface-button grid h-10 w-10 place-items-center rounded-full text-dai transition hover:text-cinnabar"
           aria-label="关闭"
         >
           <X className="h-4 w-4" />
@@ -127,23 +129,23 @@ export function NoteEditor({ note, onClose, onSave }: NoteEditorProps) {
           <input
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            placeholder="给这条云笺起个题目"
-            className="h-12 w-full rounded-2xl border border-border-soft bg-white/70 px-4 font-title text-lg font-bold text-ink outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
+            placeholder="给这条云笺起一个题目"
+            className="surface-input h-12 w-full rounded-2xl px-4 font-title text-lg font-bold text-ink outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
           />
         </label>
 
         <label className="mt-4 block">
           <span className="mb-2 block text-sm font-semibold text-dai">
-            标签
+            标签 / 话题
             <span className="ml-2 font-normal text-dai/45">
-              用逗号、空格或顿号分隔
+              用逗号、空格或顿号分隔，社区里会自动聚合为话题
             </span>
           </span>
           <input
             value={tagsInput}
             onChange={(event) => setTagsInput(event.target.value)}
             placeholder="例如：科研，读书，灵感"
-            className="h-11 w-full rounded-2xl border border-border-soft bg-white/70 px-4 text-sm text-dai outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
+            className="surface-input h-11 w-full rounded-2xl px-4 text-sm text-dai outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
           />
         </label>
 
@@ -176,7 +178,7 @@ export function NoteEditor({ note, onClose, onSave }: NoteEditorProps) {
         <button
           type="button"
           onClick={onClose}
-          className="h-11 rounded-full border border-border-soft bg-white/70 px-5 text-sm font-medium text-dai transition hover:bg-white"
+          className="surface-button h-11 rounded-full px-5 text-sm font-medium text-dai transition hover:text-cinnabar"
         >
           取消
         </button>

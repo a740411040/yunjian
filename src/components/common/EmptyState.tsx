@@ -1,8 +1,9 @@
 import { Feather } from "lucide-react";
+import type { ReactNode } from "react";
 
 type EmptyStateProps = {
-  title: string;
-  description: string;
+  title: ReactNode;
+  description: ReactNode;
   actionLabel?: string;
   onAction?: () => void;
 };
@@ -22,7 +23,9 @@ export function EmptyState({
         <h2 className="font-title mt-6 text-3xl font-black text-ink">
           {title}
         </h2>
-        <p className="mt-3 text-sm leading-loose text-dai/70">{description}</p>
+        <div className="mt-3 text-sm leading-loose text-dai/70">
+          {description}
+        </div>
         {actionLabel && onAction && (
           <button
             type="button"

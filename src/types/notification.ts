@@ -6,6 +6,7 @@ export type NotificationType =
   | "note_liked"
   | "note_favorited"
   | "note_commented"
+  | "user_followed"
   | "report_resolved"
   | "report_rejected"
   | "system";

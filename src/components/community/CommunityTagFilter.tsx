@@ -18,7 +18,7 @@ export function CommunityTagFilter({
     <section className="paper-card p-5">
       <div className="mb-4 flex items-center gap-2">
         <Hash className="h-4 w-4 text-cinnabar" />
-        <h2 className="font-title text-xl font-black text-ink">标签书签</h2>
+        <h2 className="font-title text-xl font-black text-ink">标签与话题</h2>
       </div>
 
       {tags.length === 0 ? (

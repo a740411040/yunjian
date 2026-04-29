@@ -139,6 +139,7 @@ export type Database = {
           allow_comments: boolean;
           show_liked_notes: boolean;
           default_note_visibility: "private" | "public";
+          role: "user" | "admin";
           created_at: string;
           updated_at: string;
         };
@@ -154,6 +155,7 @@ export type Database = {
           allow_comments?: boolean;
           show_liked_notes?: boolean;
           default_note_visibility?: "private" | "public";
+          role?: "user" | "admin";
           created_at?: string;
           updated_at?: string;
         };
@@ -169,6 +171,7 @@ export type Database = {
           allow_comments?: boolean;
           show_liked_notes?: boolean;
           default_note_visibility?: "private" | "public";
+          role?: "user" | "admin";
           created_at?: string;
           updated_at?: string;
         };
@@ -328,6 +331,85 @@ export type Database = {
           updated_at?: string;
         };
         Relationships: [];
+      };
+
+      user_follows: {
+        Row: {
+          id: string;
+          follower_id: string;
+          following_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          follower_id: string;
+          following_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          follower_id?: string;
+          following_id?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_follows_follower_id_fkey";
+            columns: ["follower_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "user_follows_following_id_fkey";
+            columns: ["following_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+
+      user_feedback: {
+        Row: {
+          id: string;
+          user_id: string;
+          category: "bug" | "idea" | "theme" | "community" | "other";
+          title: string;
+          content: string;
+          contact: string | null;
+          status: "pending" | "reviewing" | "planned" | "resolved";
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          category: "bug" | "idea" | "theme" | "community" | "other";
+          title: string;
+          content: string;
+          contact?: string | null;
+          status?: "pending" | "reviewing" | "planned" | "resolved";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          category?: "bug" | "idea" | "theme" | "community" | "other";
+          title?: string;
+          content?: string;
+          contact?: string | null;
+          status?: "pending" | "reviewing" | "planned" | "resolved";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_feedback_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: Record<string, never>;

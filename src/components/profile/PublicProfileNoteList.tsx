@@ -1,5 +1,3 @@
-// src/components/profile/PublicProfileNoteList.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -13,12 +11,10 @@ type PublicProfileNoteListProps = {
 export function PublicProfileNoteList({ notes }: PublicProfileNoteListProps) {
   if (notes.length === 0) {
     return (
-      <div className="rounded-3xl border border-dashed border-stone-200 bg-white px-6 py-16 text-center">
-        <div className="text-lg font-medium text-stone-700">
-          暂无公开云笺
-        </div>
-        <p className="mt-2 text-sm text-stone-400">
-          TA 还没有发布公开笔记。
+      <div className="rounded-3xl border border-dashed border-border-soft bg-white/52 px-6 py-16 text-center">
+        <div className="text-lg font-medium text-ink">暂无公开云笺</div>
+        <p className="mt-2 text-sm text-dai/45">
+          这位作者还没有把笔记公开到社区。
         </p>
       </div>
     );
@@ -44,19 +40,19 @@ function PublicProfileNoteCard({ note }: { note: PublicProfileNote }) {
   return (
     <Link
       href={`/community/notes/${note.id}`}
-      className="group block rounded-3xl border border-stone-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-red-200 hover:shadow-md"
+      className="group block rounded-3xl border border-border-soft bg-white/62 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-cinnabar/18 hover:shadow-md"
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="line-clamp-2 text-lg font-semibold leading-7 text-stone-900 group-hover:text-red-500">
+        <h3 className="line-clamp-2 text-lg font-semibold leading-7 text-ink group-hover:text-cinnabar">
           {note.title || "未题"}
         </h3>
 
-        <span className="shrink-0 rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-500">
+        <span className="shrink-0 rounded-full bg-cinnabar-soft px-3 py-1 text-xs font-medium text-cinnabar">
           公开
         </span>
       </div>
 
-      <p className="mt-3 line-clamp-3 text-sm leading-6 text-stone-500">
+      <p className="mt-3 line-clamp-3 text-sm leading-6 text-dai/62">
         {excerpt}
       </p>
 
@@ -65,15 +61,15 @@ function PublicProfileNoteCard({ note }: { note: PublicProfileNote }) {
           {note.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-500"
+              className="rounded-full bg-white/76 px-3 py-1 text-xs text-dai/60"
             >
-              {tag}
+              #{tag}
             </span>
           ))}
         </div>
       )}
 
-      <div className="mt-5 flex items-center justify-between border-t border-stone-100 pt-4 text-xs text-stone-400">
+      <div className="mt-5 flex items-center justify-between border-t border-border-soft pt-4 text-xs text-dai/45">
         <span>{formatDate(date)}</span>
 
         <div className="flex items-center gap-3">
@@ -87,11 +83,15 @@ function PublicProfileNoteCard({ note }: { note: PublicProfileNote }) {
 }
 
 function formatDate(value?: string | null) {
-  if (!value) return "";
+  if (!value) {
+    return "";
+  }
 
   const date = new Date(value);
 
-  if (Number.isNaN(date.getTime())) return "";
+  if (Number.isNaN(date.getTime())) {
+    return "";
+  }
 
   return date.toLocaleDateString("zh-CN", {
     year: "numeric",

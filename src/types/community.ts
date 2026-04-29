@@ -2,6 +2,7 @@ import type { Note } from "./note";
 import type { Profile } from "./profile";
 
 export type CommunitySort = "latest" | "popular";
+export type CommunityScope = "all" | "following";
 
 export type CommunityNote = Note & {
   profiles: Profile | null;
@@ -26,6 +27,13 @@ export type CommunityNoteQuery = {
   query?: string;
   tag?: string | null;
   sort?: CommunitySort;
+  scope?: CommunityScope;
+};
+
+export type CommunityTopic = {
+  name: string;
+  count: number;
+  sampleTitle: string | null;
 };
 
 export type CommunityComment = {

@@ -167,7 +167,7 @@ export function CommunityNoteCard({
 
   return (
     <motion.article
-      className="paper-card mb-5 break-inside-avoid p-6"
+      className="paper-card mb-5 break-inside-avoid p-5 sm:p-6"
       variants={{
         hidden: { opacity: 0, y: 18 },
         visible: { opacity: 1, y: 0 }

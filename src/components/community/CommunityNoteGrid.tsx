@@ -11,6 +11,8 @@ type CommunityNoteGridProps = {
   hasFilter: boolean;
   onClearFilter: () => void;
   onNoteChange?: (note: CommunityNote) => void;
+  emptyTitle?: string;
+  emptyDescription?: string;
 };
 
 export function CommunityNoteGrid({
@@ -18,7 +20,9 @@ export function CommunityNoteGrid({
   loading,
   hasFilter,
   onClearFilter,
-  onNoteChange
+  onNoteChange,
+  emptyTitle,
+  emptyDescription
 }: CommunityNoteGridProps) {
   if (loading) {
     return (
@@ -36,11 +40,15 @@ export function CommunityNoteGrid({
   if (notes.length === 0) {
     return (
       <EmptyState
-        title={hasFilter ? "没有找到匹配的社区云笺" : "社区暂时还没有公开云笺"}
+        title={
+          emptyTitle ??
+          (hasFilter ? "没有找到匹配的社区云笺" : "社区暂时还没有公开云笺")
+        }
         description={
-          hasFilter
-            ? "换一个关键词或标签试试，也可以清除筛选。"
-            : "从工作台进入笔记详情，点击“发布到社区”，第一条公开云笺就会出现在这里。"
+          emptyDescription ??
+          (hasFilter
+            ? "换一个关键词或标签试试，也可以先清除当前筛选。"
+            : "从工作台进入笔记详情，点一下“发布到社区”，第一条公开云笺就会出现在这里。")
         }
         actionLabel={hasFilter ? "清除筛选" : undefined}
         onAction={hasFilter ? onClearFilter : undefined}

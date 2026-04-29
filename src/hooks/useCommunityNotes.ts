@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { getCommunityNotes } from "@/lib/community";
-import type { CommunityNote, CommunitySort } from "@/types/community";
+import type {
+  CommunityNote,
+  CommunityScope,
+  CommunitySort,
+  CommunityTopic
+} from "@/types/community";
 import { useDebounce } from "./useDebounce";
 
 export function useCommunityNotes() {
@@ -13,6 +18,7 @@ export function useCommunityNotes() {
   const [query, setQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [sort, setSort] = useState<CommunitySort>("latest");
+  const [scope, setScope] = useState<CommunityScope>("all");
 
   const debouncedQuery = useDebounce(query, 280);
 
@@ -22,6 +28,38 @@ export function useCommunityNotes() {
     );
   }, [notes]);
 
+  const topics = useMemo<CommunityTopic[]>(() => {
+    const topicMap = new Map<
+      string,
+      {
+        count: number;
+        sampleTitle: string | null;
+      }
+    >();
+
+    for (const note of notes) {
+      for (const tag of note.tags) {
+        const current = topicMap.get(tag) ?? {
+          count: 0,
+          sampleTitle: null
+        };
+
+        topicMap.set(tag, {
+          count: current.count + 1,
+          sampleTitle: current.sampleTitle ?? note.title ?? null
+        });
+      }
+    }
+
+    return Array.from(topicMap.entries())
+      .map(([name, meta]) => ({
+        name,
+        count: meta.count,
+        sampleTitle: meta.sampleTitle
+      }))
+      .sort((left, right) => right.count - left.count);
+  }, [notes]);
+
   const refresh = useCallback(async () => {
     setLoading(true);
 
@@ -29,7 +67,8 @@ export function useCommunityNotes() {
       const data = await getCommunityNotes({
         query: debouncedQuery,
         tag: selectedTag,
-        sort
+        sort,
+        scope
       });
 
       setNotes(data);
@@ -40,7 +79,7 @@ export function useCommunityNotes() {
     } finally {
       setLoading(false);
     }
-  }, [debouncedQuery, selectedTag, sort]);
+  }, [debouncedQuery, selectedTag, sort, scope]);
 
   const updateNoteInList = useCallback((nextNote: CommunityNote) => {
     setNotes((currentNotes) =>
@@ -64,10 +103,13 @@ export function useCommunityNotes() {
     query,
     selectedTag,
     sort,
+    scope,
     allTags,
+    topics,
     setQuery,
     setSelectedTag,
     setSort,
+    setScope,
     refresh,
     updateNoteInList
   };

@@ -2,10 +2,12 @@
 
 import { useEffect } from "react";
 import { BookOpenCheck, Feather } from "lucide-react";
+import { PoeticCopy } from "@/components/common/PoeticCopy";
 import { CommunityHeader } from "@/components/community/CommunityHeader";
 import { CommunityNoteGrid } from "@/components/community/CommunityNoteGrid";
 import { CommunitySearchBar } from "@/components/community/CommunitySearchBar";
 import { CommunityTagFilter } from "@/components/community/CommunityTagFilter";
+import { CommunityTopicRail } from "@/components/community/CommunityTopicRail";
 import { useCommunityNotes } from "@/hooks/useCommunityNotes";
 
 export function CommunityPageClient() {
@@ -15,15 +17,18 @@ export function CommunityPageClient() {
     query,
     selectedTag,
     sort,
+    scope,
     allTags,
+    topics,
     setQuery,
     setSelectedTag,
     setSort,
+    setScope,
     refresh,
     updateNoteInList
   } = useCommunityNotes();
 
-  const hasFilter = Boolean(query.trim() || selectedTag);
+  const hasFilter = Boolean(query.trim() || selectedTag || scope === "following");
 
   function clearFilter() {
     setQuery("");
@@ -63,7 +68,9 @@ export function CommunityPageClient() {
       <div className="page-shell space-y-6">
         <CommunityHeader
           sort={sort}
+          scope={scope}
           onSortChange={setSort}
+          onScopeChange={setScope}
           onRefresh={refresh}
         />
 
@@ -78,13 +85,20 @@ export function CommunityPageClient() {
                 社区说明
               </h2>
 
-              <p className="mt-3 text-sm leading-loose text-dai/65">
-                这里展示所有用户主动公开的云笺。私人笔记不会出现在社区，只有点击“发布到社区”的内容才会公开。
-              </p>
+              <PoeticCopy
+                copyKey="community.guide"
+                className="mt-3 text-sm leading-loose text-dai/65"
+              />
             </section>
 
             <CommunityTagFilter
               tags={allTags}
+              selectedTag={selectedTag}
+              onSelectTag={setSelectedTag}
+            />
+
+            <CommunityTopicRail
+              topics={topics}
               selectedTag={selectedTag}
               onSelectTag={setSelectedTag}
             />
@@ -98,9 +112,10 @@ export function CommunityPageClient() {
                 </h2>
               </div>
 
-              <p className="mt-3 text-sm leading-loose text-dai/65">
-                好的社区云笺不一定很长。可以是一段读书摘录、一条实验记录、一个灵感闪现，或一次认真思考。
-              </p>
+              <PoeticCopy
+                copyKey="community.prompt"
+                className="mt-3 text-sm leading-loose text-dai/65"
+              />
             </section>
           </aside>
 
@@ -113,6 +128,16 @@ export function CommunityPageClient() {
               hasFilter={hasFilter}
               onClearFilter={clearFilter}
               onNoteChange={updateNoteInList}
+              emptyTitle={
+                scope === "following" && !query.trim() && !selectedTag
+                  ? "你关注的人还没有公开新内容"
+                  : undefined
+              }
+              emptyDescription={
+                scope === "following" && !query.trim() && !selectedTag
+                  ? "先去作者主页点下关注，之后这里会更像一条属于你的清雅订阅流。"
+                  : undefined
+              }
             />
           </section>
         </div>

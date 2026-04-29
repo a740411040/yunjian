@@ -1,5 +1,3 @@
-// src/components/notifications/NotificationsPageClient.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -24,7 +22,7 @@ export function NotificationsPageClient() {
           <div>
             <Link
               href="/workspace"
-              className="inline-flex h-10 items-center gap-2 rounded-full border border-border-soft bg-white/70 px-4 text-sm font-semibold text-dai transition hover:bg-white"
+              className="surface-button inline-flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold text-dai transition hover:text-cinnabar"
             >
               <ArrowLeft className="h-4 w-4" />
               返回工作台
@@ -33,22 +31,22 @@ export function NotificationsPageClient() {
             <div className="mt-6">
               <p className="text-sm font-semibold text-cinnabar">通知中心</p>
 
-              <h1 className="font-title mt-2 text-4xl font-black text-ink">
+              <h1 className="font-title mt-2 text-3xl font-black text-ink md:text-4xl">
                 云笺消息
               </h1>
 
-              <p className="mt-3 text-sm leading-loose text-dai/65">
-                查看点赞、收藏、评论和举报处理结果。
+              <p className="mt-3 max-w-2xl text-sm leading-loose text-dai/65">
+                这里会收纳点赞、收藏、评论、关注和处理结果，让你在手机和桌面端都能顺手追踪互动。
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap">
             <button
               type="button"
               onClick={() => refresh()}
               disabled={loading}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border-soft bg-white/70 px-5 text-sm font-semibold text-dai transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+              className="surface-button inline-flex h-11 w-full items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold text-dai transition hover:text-cinnabar disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               <RefreshCcw className="h-4 w-4" />
               刷新
@@ -58,7 +56,7 @@ export function NotificationsPageClient() {
               type="button"
               onClick={() => markAllRead()}
               disabled={unreadCount === 0}
-              className="seal-button h-11 gap-2 px-5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60"
+              className="seal-button h-11 w-full gap-2 px-5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
             >
               <CheckCheck className="h-4 w-4" />
               全部已读
@@ -78,7 +76,7 @@ export function NotificationsPageClient() {
               </p>
 
               <p className="mt-1 text-xs text-dai/50">
-                点击通知可进入对应笔记、评论或处理结果。
+                点开消息即可进入对应笔记、评论、作者主页或处理结果。
               </p>
             </div>
           </div>

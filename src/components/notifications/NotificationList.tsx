@@ -1,5 +1,3 @@
-// src/components/notifications/NotificationList.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -10,7 +8,8 @@ import {
   Flag,
   Heart,
   MessageCircle,
-  ShieldCheck
+  ShieldCheck,
+  UserPlus
 } from "lucide-react";
 import type {
   NotificationType,
@@ -34,6 +33,10 @@ function getNotificationIcon(type: NotificationType) {
 
   if (type === "note_commented") {
     return <MessageCircle className="h-4 w-4" />;
+  }
+
+  if (type === "user_followed") {
+    return <UserPlus className="h-4 w-4" />;
   }
 
   if (type === "report_resolved" || type === "report_rejected") {
@@ -106,7 +109,7 @@ export function NotificationList({
         const card = (
           <article
             className={[
-              "paper-card p-5 transition",
+              "paper-card p-4 transition sm:p-5",
               notification.is_read
                 ? "opacity-75"
                 : "border-cinnabar/20 bg-cinnabar-soft/20"
@@ -154,7 +157,7 @@ export function NotificationList({
                 </div>
 
                 {notification.content && (
-                  <p className="mt-3 line-clamp-3 text-sm leading-7 text-dai/70">
+                  <p className="mt-3 text-sm leading-7 text-dai/70">
                     {notification.content}
                   </p>
                 )}
@@ -180,11 +183,7 @@ export function NotificationList({
           );
         }
 
-        return (
-          <div key={notification.id}>
-            {card}
-          </div>
-        );
+        return <div key={notification.id}>{card}</div>;
       })}
     </div>
   );

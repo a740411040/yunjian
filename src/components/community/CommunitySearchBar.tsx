@@ -18,8 +18,8 @@ export function CommunitySearchBar({
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="搜索标题、正文、标签或作者..."
-        className="h-12 w-full rounded-full border border-border-soft bg-white/72 pl-11 pr-12 text-sm text-dai outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
+        placeholder="搜索标题、正文、标签或作者"
+        className="surface-input h-12 w-full rounded-2xl pl-11 pr-12 text-sm text-dai outline-none transition focus:border-cinnabar/50 focus:ring-4 focus:ring-cinnabar/10"
       />
 
       {value && (

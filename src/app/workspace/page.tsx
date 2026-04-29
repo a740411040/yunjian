@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Plus, RefreshCcw } from "lucide-react";
 import { useState } from "react";
 import { EmptyState } from "@/components/common/EmptyState";
+import { PoeticCopy } from "@/components/common/PoeticCopy";
 import { NoteEditor } from "@/components/workspace/NoteEditor";
 import { NoteMasonryGrid } from "@/components/workspace/NoteMasonryGrid";
 import { SearchBox } from "@/components/workspace/SearchBox";
@@ -31,7 +32,6 @@ export default function WorkspacePage() {
   const [editingNote, setEditingNote] = useState<Note | null>(null);
   const [editorOpen, setEditorOpen] = useState(false);
 
-
   function handleNewNote() {
     setEditingNote(null);
     setEditorOpen(true);
@@ -55,6 +55,10 @@ export default function WorkspacePage() {
                 <h1 className="font-title mt-1 text-3xl font-black tracking-tight text-ink md:text-4xl">
                   今日所思，皆可入笺
                 </h1>
+                <PoeticCopy
+                  copyKey="workspace.header"
+                  className="mt-2 text-sm leading-loose text-dai/65"
+                />
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -62,7 +66,7 @@ export default function WorkspacePage() {
                 <button
                   type="button"
                   onClick={refresh}
-                  className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-border-soft bg-white/70 px-4 text-sm font-medium text-dai transition hover:bg-white"
+                  className="surface-button inline-flex h-11 items-center justify-center gap-2 rounded-full px-4 text-sm font-medium text-dai transition hover:text-cinnabar"
                 >
                   <RefreshCcw className="h-4 w-4" />
                   刷新
@@ -99,9 +103,11 @@ export default function WorkspacePage() {
               <EmptyState
                 title={query || selectedTag ? "没有找到匹配的笔记" : "还没有任何云笺"}
                 description={
-                  query || selectedTag
-                    ? "换一个关键词，或者清除标签筛选试试。"
-                    : "写下第一条灵感，让它像一枚朱砂印，留在今日。"
+                  query || selectedTag ? (
+                    "换一个关键词，或者先清除当前标签筛选。"
+                  ) : (
+                    <PoeticCopy copyKey="workspace.empty" as="span" />
+                  )
                 }
                 actionLabel="新建第一条"
                 onAction={handleNewNote}

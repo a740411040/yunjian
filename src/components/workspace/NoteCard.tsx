@@ -28,7 +28,7 @@ export function NoteCard({
   return (
     <>
       <motion.article
-        className="paper-card mb-5 break-inside-avoid p-6"
+        className="paper-card mb-5 break-inside-avoid p-5 sm:p-6"
         variants={{
           hidden: { opacity: 0, y: 18 },
           visible: { opacity: 1, y: 0 }
@@ -42,7 +42,7 @@ export function NoteCard({
               {note.is_pinned && (
                 <span className="inline-flex items-center gap-1 rounded-full bg-cinnabar px-2.5 py-1 text-[11px] font-semibold text-white shadow-seal">
                   <Pin className="h-3 w-3" />
-                  朱砂置顶
+                  置顶
                 </span>
               )}
               <span className="inline-flex items-center gap-1 text-xs text-dai/48">
@@ -63,7 +63,10 @@ export function NoteCard({
             aria-label={note.is_pinned ? "取消置顶" : "置顶"}
             title={note.is_pinned ? "取消置顶" : "置顶"}
           >
-            <Pin className="h-4 w-4" fill={note.is_pinned ? "currentColor" : "none"} />
+            <Pin
+              className="h-4 w-4"
+              fill={note.is_pinned ? "currentColor" : "none"}
+            />
           </button>
         </div>
 
@@ -82,16 +85,16 @@ export function NoteCard({
           </div>
         )}
 
-        <div className="mt-6 flex items-center justify-between border-t border-border-soft/80 pt-4">
+        <div className="mt-6 flex flex-col gap-3 border-t border-border-soft/80 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <Link
             href={`/workspace/notes/${note.id}`}
-            className="inline-flex items-center gap-2 rounded-full bg-white/64 px-3 py-2 text-xs font-semibold text-dai transition hover:bg-white"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white/64 px-3 py-2 text-xs font-semibold text-dai transition hover:bg-white sm:w-auto"
           >
             <Eye className="h-3.5 w-3.5" />
             详情 / 海报
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-end gap-2">
             <button
               type="button"
               onClick={() => onEdit(note)}
@@ -115,9 +118,9 @@ export function NoteCard({
       <ConfirmDialog
         open={confirmOpen}
         title="确定删除这条云笺？"
-        description="删除后无法恢复。这枚文字印记将从你的云端书案中移除。"
+        description="删除后无法恢复，这一页内容会从你的书案中移除。"
         confirmText="删除"
-        cancelText="再想想"
+        cancelText="取消"
         onCancel={() => setConfirmOpen(false)}
         onConfirm={async () => {
           await onDelete(note.id);

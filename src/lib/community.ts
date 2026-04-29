@@ -1,6 +1,7 @@
 // src/lib/community.ts
 
 import { createClient } from "@/lib/supabase/browser";
+import { getFollowedUserIds } from "@/lib/follows";
 import { stripHtml } from "@/lib/utils";
 import type { CommunityNote, CommunityNoteQuery } from "@/types/community";
 import type { Note, PublishNotePayload } from "@/types/note";
@@ -109,6 +110,16 @@ export async function getCommunityNotes(
     .select("*")
     .eq("visibility", "public")
     .order("published_at", { ascending: false });
+
+  if (params.scope === "following") {
+    const followedUserIds = await getFollowedUserIds();
+
+    if (followedUserIds.length === 0) {
+      return [];
+    }
+
+    notesRequest = notesRequest.in("user_id", followedUserIds);
+  }
 
   if (params.tag) {
     notesRequest = notesRequest.contains("tags", [params.tag]);

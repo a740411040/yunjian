@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
-import { FeatureSection } from "@/components/landing/FeatureSection";
-import { HeroSection } from "@/components/landing/HeroSection";
-import { InkDecorations } from "@/components/landing/InkDecorations";
+import { LandingExperience } from "@/components/landing/LandingExperience";
+import { getRandomLandingVariant } from "@/lib/site-theme";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function HomePage() {
@@ -14,11 +13,5 @@ export default async function HomePage() {
     redirect("/workspace");
   }
 
-  return (
-    <main className="relative min-h-screen overflow-hidden">
-      <InkDecorations />
-      <HeroSection />
-      <FeatureSection />
-    </main>
-  );
+  return <LandingExperience variant={getRandomLandingVariant()} />;
 }

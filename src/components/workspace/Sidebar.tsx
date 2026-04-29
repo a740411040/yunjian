@@ -1,11 +1,10 @@
-// src/components/workspace/Sidebar.tsx
-
 "use client";
 
 import Link from "next/link";
 import {
   Bookmark,
   LogOut,
+  MessageSquareHeart,
   Plus,
   ScrollText,
   Settings,
@@ -17,6 +16,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { AppLogo } from "@/components/common/AppLogo";
+import { PoeticCopy } from "@/components/common/PoeticCopy";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { getCurrentProfileClient } from "@/lib/profiles";
 import { createClient } from "@/lib/supabase/browser";
@@ -86,7 +86,7 @@ export function Sidebar({
         <button
           type="button"
           onClick={handleSignOut}
-          className="grid h-10 w-10 place-items-center rounded-full border border-border-soft bg-white/70 text-dai transition hover:bg-white"
+          className="surface-button grid h-10 w-10 place-items-center rounded-full text-dai transition hover:text-cinnabar"
           aria-label="退出登录"
         >
           <LogOut className="h-4 w-4" />
@@ -143,6 +143,14 @@ export function Sidebar({
           个人设置
         </Link>
 
+        <Link
+          href="/feedback"
+          className="flex h-11 w-full items-center gap-3 rounded-2xl px-4 text-sm font-medium text-dai/70 transition hover:bg-white/60 hover:text-dai"
+        >
+          <MessageSquareHeart className="h-4 w-4" />
+          用户反馈
+        </Link>
+
         {isAdmin && (
           <Link
             href="/admin/reports"
@@ -163,7 +171,7 @@ export function Sidebar({
         <div className="flex flex-wrap gap-2">
           {tags.length === 0 ? (
             <p className="text-sm leading-loose text-dai/55">
-              创建笔记并添加标签后，会在这里形成书签索引。
+              创建笔记并添加标签后，这里会慢慢长出属于你的主题索引。
             </p>
           ) : (
             tags.map((tag) => (
@@ -186,9 +194,10 @@ export function Sidebar({
       <div className="mt-auto hidden pt-8 lg:block">
         <div className="rounded-3xl border border-border-soft bg-white/48 p-4">
           <p className="font-title text-lg font-black text-ink">云中留白</p>
-          <p className="mt-2 text-xs leading-loose text-dai/62">
-            每日只写几句也好。好的笔记系统，是让灵感愿意回来。
-          </p>
+          <PoeticCopy
+            copyKey="workspace.sidebar"
+            className="mt-2 text-xs leading-loose text-dai/62"
+          />
         </div>
       </div>
     </aside>
