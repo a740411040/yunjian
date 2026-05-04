@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { EmptyState } from "@/components/common/EmptyState";
 import { CommunityNoteCard } from "@/components/community/CommunityNoteCard";
 import type { CommunityNote } from "@/types/community";
@@ -57,19 +56,7 @@ export function CommunityNoteGrid({
   }
 
   return (
-    <motion.div
-      className="columns-1 gap-5 md:columns-2 2xl:columns-3"
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: 0.04
-          }
-        }
-      }}
-    >
+    <div className="columns-1 gap-5 md:columns-2 2xl:columns-3">
       {notes.map((note) => (
         <CommunityNoteCard
           key={note.id}
@@ -77,6 +64,6 @@ export function CommunityNoteGrid({
           onNoteChange={onNoteChange}
         />
       ))}
-    </motion.div>
+    </div>
   );
 }

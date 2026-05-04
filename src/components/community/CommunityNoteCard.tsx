@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Bookmark,
@@ -44,18 +43,6 @@ export function CommunityNoteCard({
   const [hasFavorited, setHasFavorited] = useState(note.has_favorited);
   const [liking, setLiking] = useState(false);
   const [favoriting, setFavoriting] = useState(false);
-
-  useEffect(() => {
-    setLikeCount(note.like_count);
-    setFavoriteCount(note.favorite_count);
-    setHasLiked(note.has_liked);
-    setHasFavorited(note.has_favorited);
-  }, [
-    note.like_count,
-    note.favorite_count,
-    note.has_liked,
-    note.has_favorited
-  ]);
 
   function emitNoteChange(next: Partial<CommunityNote>) {
     onNoteChange?.({
@@ -166,15 +153,7 @@ export function CommunityNoteCard({
   }
 
   return (
-    <motion.article
-      className="paper-card mb-5 break-inside-avoid p-5 sm:p-6"
-      variants={{
-        hidden: { opacity: 0, y: 18 },
-        visible: { opacity: 1, y: 0 }
-      }}
-      whileHover={{ y: -3 }}
-      transition={{ duration: 0.24, ease: "easeOut" }}
-    >
+    <article className="paper-card mb-5 break-inside-avoid p-5 sm:p-6 transition-shadow hover:shadow-lg">
       <Link
         href={`/profile/${note.user_id}`}
         className="-ml-2 flex w-fit max-w-full items-center gap-3 rounded-2xl p-2 transition hover:bg-cinnabar-soft/60"
@@ -292,6 +271,6 @@ export function CommunityNoteCard({
           阅读全文
         </Link>
       </div>
-    </motion.article>
+    </article>
   );
 }

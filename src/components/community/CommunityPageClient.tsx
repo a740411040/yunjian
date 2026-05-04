@@ -36,29 +36,14 @@ export function CommunityPageClient() {
   }
 
   useEffect(() => {
-    function handlePageShow(event: PageTransitionEvent) {
-      if (event.persisted) {
-        void refresh();
-      }
-    }
-
     function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
         void refresh();
       }
     }
 
-    function handleWindowFocus() {
-      void refresh();
-    }
-
-    window.addEventListener("pageshow", handlePageShow);
-    window.addEventListener("focus", handleWindowFocus);
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
     return () => {
-      window.removeEventListener("pageshow", handlePageShow);
-      window.removeEventListener("focus", handleWindowFocus);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [refresh]);

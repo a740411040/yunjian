@@ -168,6 +168,96 @@ export const landingVariants: LandingVariant[] = [
       frame:
         "linear-gradient(145deg, rgba(252,247,244,0.98), rgba(245,238,232,0.94))"
     }
+  },
+  {
+    id: "plum-snow",
+    name: "梅雪争春",
+    badge: "梅红霜白 · 清冷款",
+    heading: "梅雪争春",
+    highlight: "让文字也有傲骨",
+    description:
+      "冷色调中的暖意，像冬日梅枝上的积雪，红白相映，适合细腻的情感书写与诗意的片段记录。",
+    featureLead: "清、冷、静、远",
+    featureBody:
+      "以青灰与梅红为主调，在清冷的视觉里保留一抹温度，像雪中盛开的梅。",
+    heroNote: "雪落无声，梅开有意。",
+    footerNote: "在最冷的夜里，写最暖的字。",
+    palette: {
+      shell:
+        "linear-gradient(135deg, rgba(248,246,250,0.96), rgba(240,242,247,0.94))",
+      badge:
+        "border border-[#c4b8cc] bg-white/70 text-[#6b5a7a] shadow-[0_12px_28px_rgba(107,90,122,0.14)]",
+      primaryButton:
+        "bg-[#8e7a9e] text-white shadow-[0_14px_28px_rgba(142,122,158,0.28)] hover:bg-[#7c6a8c]",
+      secondaryButton:
+        "border border-[#ddd5e6] bg-white/70 text-[#5a4e6e] hover:bg-white",
+      chip: "border border-[#e2d8ee] bg-white/72 text-[#7a6a8e]",
+      glowA: "rgba(142,122,158,0.22)",
+      glowB: "rgba(210,120,140,0.14)",
+      glowC: "rgba(180,200,210,0.16)",
+      frame:
+        "linear-gradient(145deg, rgba(250,248,252,0.98), rgba(240,244,248,0.94))"
+    }
+  },
+  {
+    id: "cloud-cedar",
+    name: "云杉晓岚",
+    badge: "苍松翠微 · 山林款",
+    heading: "松声入座",
+    highlight: "把山林的宁静收进一屏",
+    description:
+      "以苍绿与墨青为主调，像清晨山间的薄雾与古松，适合长线思考、深度写作与静心的知识整理。",
+    featureLead: "远、深、沉、透",
+    featureBody:
+      "让每一次打开都有山间清晨的宁静感，背景的青绿渐变如晨雾在林间流动。",
+    heroNote: "松风吹不断，山色入窗来。",
+    footerNote: "写下的每一行，都像松针落在纸上。",
+    palette: {
+      shell:
+        "linear-gradient(135deg, rgba(242,247,243,0.96), rgba(234,245,239,0.94))",
+      badge:
+        "border border-[#a0b8a8] bg-white/70 text-[#4a6658] shadow-[0_12px_28px_rgba(74,102,88,0.12)]",
+      primaryButton:
+        "bg-[#4a7a62] text-white shadow-[0_14px_28px_rgba(74,122,98,0.26)] hover:bg-[#3e6a54]",
+      secondaryButton:
+        "border border-[#d0ddd4] bg-white/70 text-[#3a5446] hover:bg-white",
+      chip: "border border-[#d4e2d8] bg-white/72 text-[#4a6658]",
+      glowA: "rgba(74,122,98,0.20)",
+      glowB: "rgba(100,160,130,0.14)",
+      glowC: "rgba(180,200,175,0.16)",
+      frame:
+        "linear-gradient(145deg, rgba(244,248,245,0.98), rgba(234,244,238,0.94))"
+    }
+  },
+  {
+    id: "amber-dusk",
+    name: "琥珀黄昏",
+    badge: "昏黄琥珀 · 暖调款",
+    heading: "琥珀藏光",
+    highlight: "把傍晚的温柔存进文字",
+    description:
+      "暖橙与琥珀色调，像黄昏的最后一缕光，适合日记、随笔与情感类的轻声书写。",
+    featureLead: "暖、柔、慢、珍",
+    featureBody:
+      "在昏黄的暖调里，所有文字都像被傍晚的光轻轻包裹，变得柔和而珍贵。",
+    heroNote: "日落之后，还有一段琥珀色的时间。",
+    footerNote: "黄昏不是结束，是最适合回望的时刻。",
+    palette: {
+      shell:
+        "linear-gradient(135deg, rgba(250,246,238,0.96), rgba(248,244,236,0.94))",
+      badge:
+        "border border-[#d4c4a0] bg-white/70 text-[#7a6040] shadow-[0_12px_28px_rgba(180,140,80,0.14)]",
+      primaryButton:
+        "bg-[#c49050] text-white shadow-[0_14px_28px_rgba(196,144,80,0.26)] hover:bg-[#b08040]",
+      secondaryButton:
+        "border border-[#e4d8c4] bg-white/70 text-[#6a5038] hover:bg-white",
+      chip: "border border-[#ece0cc] bg-white/72 text-[#8a7048]",
+      glowA: "rgba(196,144,80,0.20)",
+      glowB: "rgba(220,160,80,0.12)",
+      glowC: "rgba(200,120,80,0.14)",
+      frame:
+        "linear-gradient(145deg, rgba(252,248,242,0.98), rgba(248,244,236,0.94))"
+    }
   }
 ];
 
